@@ -14,6 +14,7 @@ class CartController extends Controller
     {
         $totalPrice = $service->totalPrice();
         $carts = Auth::user()->cart;
+
         return view('cart.show', compact(['carts', 'totalPrice']));
     }
 
@@ -23,12 +24,14 @@ class CartController extends Controller
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
         ]);
+
         return redirect()->route('home');
     }
 
     public function removeProductFromCart(Cart $cart)
     {
         $cart->delete();
+
         return redirect()->back();
     }
 
@@ -40,6 +43,7 @@ class CartController extends Controller
         $cart->update([
             'quantity' => $request->quantity,
         ]);
+
         return redirect()->back();
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        @foreach($products as $product)
+        @forelse($products as $product)
             <div class="card" style="width: 18rem; margin-left: 20px">
                 <img src="{{ asset("images/$product->file") }}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -24,6 +24,10 @@
                     @endif
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div align="center">
+                no products
+            </div>
+        @endforelse
     </div>
 @endsection

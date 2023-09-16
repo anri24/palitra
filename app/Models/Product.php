@@ -11,6 +11,7 @@ class Product extends Model
     use HasFactory, Sluggable;
 
     protected $table = 'products';
+
     protected $fillable = [
         'user_id',
         'name',
@@ -22,11 +23,12 @@ class Product extends Model
 
     public function user()
     {
-       return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
     public function cart()
     {
-        return $this->hasMany(Cart::class,'product_id','id');
+        return $this->hasMany(Cart::class, 'product_id', 'id');
     }
 
     public function sluggable(): array

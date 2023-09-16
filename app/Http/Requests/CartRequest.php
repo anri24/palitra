@@ -22,7 +22,7 @@ class CartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'quantity'
+            'quantity' => 'required',
         ];
     }
 }

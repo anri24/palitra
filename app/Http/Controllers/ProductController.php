@@ -21,26 +21,30 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-
         return view('products.edit', compact('product'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request,ImageService $service)
     {
         $validate = $request->validated();
         $validate['user_id'] = Auth::user()->id;
-        $validate['file'] = (new ImageService())->UploadImage($request, 'images/', 'file');
+        $validate['file'] = $service->UploadImage($request, 'images/', 'file');
+
         Product::create($validate);
+
         return redirect()->route('home');
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product,ImageService $service)
     {
         $validate = $request->validated();
+
         if ($request->file) {
-            $validate['file'] = (new ImageService())->UploadImage($request, 'images/', 'file');
+            $validate['file'] = $service->UploadImage($request, 'images/', 'file');
         }
+
         $product->update($validate);
+
         return redirect()->route('home');
     }
 
@@ -50,8 +54,7 @@ class ProductController extends Controller
         foreach ($product->cart as $cart) {
             $cart->delete();
         }
+
         return redirect()->back();
     }
-
-
 }
